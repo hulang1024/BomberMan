@@ -27,12 +27,12 @@ public class Bomb : StaticBody2D
         }
     }
 
+    private bool canExplode = false;
+
     private CollisionShape2D collisionShape;
     private AnimatedSprite animatedSprite;
     private AudioStreamPlayer audioPlayer;
     private Timer timer;
-
-    private bool canExplode = false;
 
     public override void _Ready()
     {

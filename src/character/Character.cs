@@ -7,7 +7,7 @@ public enum Dir { Down, Up, Right, Left }
 public class Character : KinematicBody2D
 {
     public Dir Dir { get; private set; } = Dir.Down;
-    public bool isInvincible = false;
+    public bool IsInvincible = false;
     public bool IsDead { get; private set; } = false;
     public bool IsMoving { get; private set; } = false;
     public Vector2 Vector = Vector2.Zero;
@@ -104,7 +104,7 @@ public class Character : KinematicBody2D
     {
         if (IsDead) return;
 
-        if (!isInvincible)
+        if (!IsInvincible)
         {
             IsDead = true;
 
