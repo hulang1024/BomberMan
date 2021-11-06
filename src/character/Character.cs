@@ -7,19 +7,29 @@ public enum Dir { Down, Up, Right, Left }
 public class Character : KinematicBody2D
 {
     public Dir Dir { get; private set; } = Dir.Down;
-    public bool IsInvincible = false;
+    public Props Props;
     public bool IsDead { get; private set; } = false;
     public bool IsMoving { get; private set; } = false;
     public Vector2 Vector = Vector2.Zero;
     private Vector2 velocity = Vector2.Zero;
     private float speed = 16 * 4;
+    public float RealSpeed
+    {
+        get => speed + Props.ExtraSpeed * (16 * 2);
+    }
 
-    private Hurtbox hurtbox;
+    internal Hurtbox Hurtbox;
+
     private AnimationPlayer animationPlayer;
     private AudioStreamPlayer audioPlayer;
 
     private AudioStream spawnAudio;
     private AudioStream dieAudio;
+
+    public Character()
+    {
+        Props = new Props(this);
+    }
 
     public override void _Ready()
     {
@@ -30,8 +40,8 @@ public class Character : KinematicBody2D
 
         audioPlayer = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
 
-        hurtbox = GetNode<Hurtbox>("Hurtbox");
-        hurtbox.Connect("hitbox_entered", this, "OnHitEntered");
+        Hurtbox = GetNode<Hurtbox>("Hurtbox");
+        Hurtbox.Connect("hitbox_entered", this, "OnHitEntered");
 
         spawnAudio = GD.Load<AudioStream>("res://assets/audio/character/spawn.mp3");
         dieAudio = GD.Load<AudioStream>("res://assets/audio/character/die.mp3");
@@ -48,8 +58,9 @@ public class Character : KinematicBody2D
         if (Vector.x != 0 || Vector.y != 0)
         {
             IsMoving = true;
-            velocity.x = Vector.x * speed * delta;
-            velocity.y = Vector.y * speed * delta;
+
+            velocity.x = Vector.x * RealSpeed * delta;
+            velocity.y = Vector.y * RealSpeed * delta;
 
             if (velocity.x > 0)
                 Dir = Dir.Right;
@@ -104,12 +115,18 @@ public class Character : KinematicBody2D
     {
         if (IsDead) return;
 
-        if (!IsInvincible)
+        if (!Props.IsInvincible)
         {
             IsDead = true;
 
             audioPlayer.Stream = dieAudio;
             audioPlayer.Play();
+
+            if (hitbox.Owner is FlameSegment)
+            {
+                var bomb = ((FlameSegment)hitbox.Owner).Bomb;
+                bomb.AudioPlayer.VolumeDb = -16;
+            }
         }
     }
 }

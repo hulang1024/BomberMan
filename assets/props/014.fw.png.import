@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/powerups.png-4357fff095639c3686cea16b7fbe3524.stex"
+path="res://.import/014.fw.png-5543ff98cff89e48c4a7c85e13680adf.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/powerups.png"
-dest_files=[ "res://.import/powerups.png-4357fff095639c3686cea16b7fbe3524.stex" ]
+source_file="res://assets/props/014.fw.png"
+dest_files=[ "res://.import/014.fw.png-5543ff98cff89e48c4a7c85e13680adf.stex" ]
 
 [params]
 

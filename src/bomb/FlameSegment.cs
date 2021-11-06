@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public class FlameSegment : Node2D
 {
@@ -7,7 +6,7 @@ public class FlameSegment : Node2D
 
     public static PackedScene Scene = GD.Load<PackedScene>("res://src/bomb/FlameSegment.tscn");
 
-    public Action<Character> OnTouchCharacter;
+    public Bomb Bomb { get; private set; }
 
     private Kind kind;
 
@@ -17,9 +16,6 @@ public class FlameSegment : Node2D
     {
         SetAnimatedSprite();
         animatedSprite.Play();
-
-        var hitbox = GetNode<Hitbox>("Hitbox");
-        hitbox.Connect("hurtbox_entered", this, "OnHurtboxEntered");
     }
 
     private void SetAnimatedSprite()
@@ -55,9 +51,10 @@ public class FlameSegment : Node2D
         animatedSprite.Animation = anim;
     }
 
-    public static FlameSegment Create(Kind kind)
+    public static FlameSegment Create(Bomb bomb, Kind kind)
     {
         var flame = Scene.Instance<FlameSegment>();
+        flame.Bomb = bomb;
         flame.kind = kind;
         return flame;
     }
@@ -65,13 +62,5 @@ public class FlameSegment : Node2D
     private void OnAnimationFinished()
     {
         QueueFree();
-    }
-
-    private void OnHurtboxEntered(Hurtbox hurtbox)
-    {
-        if (hurtbox.Owner is Character)
-        {
-            OnTouchCharacter?.Invoke((Character)hurtbox.Owner);
-        }
     }
 }

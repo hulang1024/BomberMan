@@ -93,7 +93,10 @@ explode_bomb={
 2d_physics/layer_2="wall"
 2d_physics/layer_3="brick"
 2d_physics/layer_4="npc"
-2d_physics/layer_5="character"
+2d_physics/layer_5="props"
+2d_physics/layer_6="character"
+2d_physics/layer_7="flame"
+2d_physics/layer_8="bomb"
 
 [physics]
 

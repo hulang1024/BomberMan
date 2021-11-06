@@ -191,7 +191,7 @@ disabled = true
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 8
-collision_mask = 22
+collision_mask = 38
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
@@ -200,7 +200,7 @@ shape = SubResource( 7 )
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 8
-collision_mask = 0
+collision_mask = 64
 script = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]

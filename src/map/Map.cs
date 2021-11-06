@@ -13,10 +13,7 @@ public class Map : YSort
             if (node is TileMap)
             {
                 var tileMap = (TileMap)node;
-                if (tileMap.Name != "Floor")
-                {
-                    tileMaps.Add(tileMap);
-                }
+                tileMaps.Add(tileMap);
                 if (otherTileMap == null && tileMap.Name == "Other")
                 {
                     otherTileMap = tileMap;

@@ -29,12 +29,19 @@ public class PlayerCharacterController : Node2D
 
         if (@event.IsActionPressed("place_bomb"))
         {
-            character.OnPlaceBomb();
-            lastPlaceBomb = MapPlay.PlaceBomb(character.GlobalPosition + Vector2.Down * 5);
+            if (character.Props.IsCanPlaceBomb())
+            {
+                character.OnPlaceBomb();
+                lastPlaceBomb = MapPlay.PlaceBomb(character);
+            }
         }
         else if (@event.IsActionPressed("explode_bomb"))
         {
-            lastPlaceBomb.Explode();
+            if (character.Props.HasController)
+            {
+                lastPlaceBomb?.Explode();
+                lastPlaceBomb = null;
+            }
         }
     }
 }

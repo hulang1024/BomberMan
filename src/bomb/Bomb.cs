@@ -1,16 +1,21 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 public class Bomb : StaticBody2D
 {
     public static PackedScene Scene = GD.Load<PackedScene>("res://src/bomb/Bomb.tscn");
 
+    public Action OnDestory;
+
+    public const int MaxPower = 14;
+
     public Map Map;
 
     /// <summary>
     /// 定时计时
     /// </summary>
-    public int DelayMS = 1000;
+    public int DelayMS = 2000;
     /// <summary>
     /// 爆炸破坏威力，地图格子单位
     /// </summary>
@@ -20,7 +25,7 @@ public class Bomb : StaticBody2D
         get => power;
         set
         {
-            if (1 <= power && power <= 14)
+            if (1 <= power && power <= MaxPower)
             {
                 power = value;
             }
@@ -29,9 +34,9 @@ public class Bomb : StaticBody2D
 
     private bool canExplode = false;
 
+    public AudioStreamPlayer AudioPlayer;
     private CollisionShape2D collisionShape;
     private AnimatedSprite animatedSprite;
-    private AudioStreamPlayer audioPlayer;
     private Timer timer;
 
     public override void _Ready()
@@ -44,8 +49,8 @@ public class Bomb : StaticBody2D
         animatedSprite.Connect("animation_finished", this, "OnAnimationFinished");
         animatedSprite.Connect("frame_changed", this, "OnFrameChanged");
 
-        audioPlayer = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
-        audioPlayer.Connect("finished", this, "OnExplodeAudioPlayFinished");
+        AudioPlayer = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
+        AudioPlayer.Connect("finished", this, "OnExplodeAudioPlayFinished");
 
         timer = GetNode<Timer>("Timer");
         timer.Connect("timeout", this, "OnTimeout");
@@ -73,13 +78,14 @@ public class Bomb : StaticBody2D
     {
         if (collisionShape == null) return;
         timer.Stop();
-        canExplode = true;
+        PerformExplode();
+        canExplode = false;
     }
 
     public void PerformExplode()
     {        
         var centerCellPosition = Map.WorldToMap(GlobalPosition);
-        var centerFlame = FlameSegment.Create(FlameSegment.Kind.Center);
+        var centerFlame = FlameSegment.Create(this, FlameSegment.Kind.Center);
         Map.ReplaceTile(centerCellPosition, centerFlame);
 
         collisionShape.QueueFree();
@@ -105,6 +111,7 @@ public class Bomb : StaticBody2D
                         if (!stopPowerDirs.ContainsKey(dir))
                         {
                             var brokenBrick = BrokenBrick.Scene.Instance<BrokenBrick>();
+                            brokenBrick.BrickType = BrickType.Brick_Gray;
                             Map.ReplaceTile(position, brokenBrick);
                         }
                         stopGrowDirs[dir] = true;   
@@ -120,22 +127,18 @@ public class Bomb : StaticBody2D
                         }
                         else
                         {
-                            var flame = FlameSegment.Create(
+                            var flame = FlameSegment.Create(this,
                                 (FlameSegment.Kind)(power == Power - 1 ? dir + 5 : dir + 1));
-                            flame.OnTouchCharacter = (c) =>
-                            {
-                                audioPlayer.VolumeDb = -16;
-                            };
                             Map.ReplaceTile(position, flame);
                         }
-
                         break;
-
                 }
             }
         }
 
-        audioPlayer.Play();
+        AudioPlayer.Play();
+
+        OnDestory?.Invoke();
     }
 
     private void OnTimeout()
