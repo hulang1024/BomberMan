@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/gameplay/ui/GameTimer.cs" type="Script" id=1]
+[ext_resource path="res://src/gameplay/ui/TextSprite.tscn" type="PackedScene" id=2]
+
+[node name="GameTimer" type="Control"]
+margin_right = 27.0
+margin_bottom = 7.0
+rect_pivot_offset = Vector2( -38, -18 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MinutesTextSprite" parent="." instance=ExtResource( 2 )]
+Text = "0"
+
+[node name="SecondsTextSprite" parent="." instance=ExtResource( 2 )]
+margin_left = 12.0
+margin_right = 27.0
+Text = "00"
+
+[node name="Timer" type="Timer" parent="."]

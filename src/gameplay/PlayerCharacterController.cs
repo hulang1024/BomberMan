@@ -4,7 +4,7 @@ using System;
 
 public class PlayerCharacterController : Node2D
 {
-    public MapPlay MapPlay;
+    public World World;
 
     private Character character;
 
@@ -31,8 +31,12 @@ public class PlayerCharacterController : Node2D
         {
             if (character.Props.IsCanPlaceBomb())
             {
-                character.OnPlaceBomb();
-                lastPlaceBomb = MapPlay.PlaceBomb(character);
+                var bomb = World.PlaceBomb(character);
+                if (bomb != null)
+                {
+                    character.OnPlaceBomb();
+                    lastPlaceBomb = bomb;
+                }
             }
         }
         else if (@event.IsActionPressed("explode_bomb"))

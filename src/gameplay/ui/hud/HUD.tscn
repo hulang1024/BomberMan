@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/ui/status_bar.png" type="Texture" id=1]
+[ext_resource path="res://src/gameplay/ui/hud/HUD.cs" type="Script" id=2]
+[ext_resource path="res://src/gameplay/ui/GameTimer.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/gameplay/ui/TextSprite.tscn" type="PackedScene" id=4]
+
+[node name="HUD" type="CanvasLayer"]
+offset = Vector2( 0, 8 )
+transform = Transform2D( 1, 0, 0, 1, 0, 8 )
+script = ExtResource( 2 )
+
+[node name="StatusBarTextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="GameTimer" parent="." instance=ExtResource( 3 )]
+margin_left = 107.0
+margin_top = 8.0
+margin_right = 134.0
+margin_bottom = 15.0
+
+[node name="LifeTextSprite" parent="." instance=ExtResource( 4 )]
+margin_left = 153.0
+margin_top = 8.0
+margin_right = 160.0
+margin_bottom = 15.0
+Text = "2"
+
+[node name="ScoreTextSprite" parent="." instance=ExtResource( 4 )]
+margin_left = 19.0
+margin_top = 8.0
+margin_right = 82.0
+margin_bottom = 15.0
+Text = "0"
