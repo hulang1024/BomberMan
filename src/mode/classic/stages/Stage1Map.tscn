@@ -37,21 +37,36 @@ tile_data = PoolIntArray( 65544, 2, 0, 65545, 2, 0, 65546, 2, 0, 65547, 2, 0, 65
 [node name="Other" type="TileMap" parent="."]
 format = 1
 
-[node name="Npc" type="Node2D" parent="."]
-
-[node name="Balloon" parent="Npc" instance=ExtResource( 3 )]
-position = Vector2( 192, 48 )
-
-[node name="Balloon3" parent="Npc" instance=ExtResource( 3 )]
-position = Vector2( 112, 48 )
-
-[node name="Balloon" parent="Npc/Balloon3" instance=ExtResource( 3 )]
-position = Vector2( 128, 32 )
-
-[node name="Balloon2" parent="Npc" instance=ExtResource( 3 )]
-position = Vector2( 368, 112 )
-
 [node name="Props" type="Node2D" parent="."]
 
 [node name="GameProp" parent="Props" instance=ExtResource( 5 )]
 position = Vector2( 80, 32 )
+
+[node name="GameProp2" parent="Props" instance=ExtResource( 5 )]
+position = Vector2( 64, 16 )
+Type = 6
+
+[node name="GameProp3" parent="Props" instance=ExtResource( 5 )]
+position = Vector2( 112, 48 )
+Type = 1
+
+[node name="GameProp5" parent="Props" instance=ExtResource( 5 )]
+position = Vector2( 80, 64 )
+
+[node name="GameProp4" parent="Props" instance=ExtResource( 5 )]
+position = Vector2( 112, 96 )
+Type = 1
+
+[node name="Npc" type="Node2D" parent="."]
+
+[node name="Balloon4" parent="Npc" instance=ExtResource( 3 )]
+position = Vector2( 376, 184 )
+
+[node name="Balloon" parent="Npc" instance=ExtResource( 3 )]
+position = Vector2( 408, 184 )
+
+[node name="Balloon2" parent="Npc" instance=ExtResource( 3 )]
+position = Vector2( 56, 104 )
+
+[node name="Balloon3" parent="Npc" instance=ExtResource( 3 )]
+position = Vector2( 88, 184 )

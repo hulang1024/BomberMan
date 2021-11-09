@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class Map : YSort
 {
+    public const int TileSize = 16;
+
     private List<TileMap> tileMaps = new List<TileMap>();
     private TileMap otherTileMap;
 
@@ -64,5 +66,10 @@ public class Map : YSort
     public Vector2 MapToWorld(Vector2 position)
     {
        return tileMaps[0].MapToWorld(position);
+    }
+
+    public Vector2 ToMapWorld(Vector2 position)
+    {
+        return MapToWorld(WorldToMap(position));
     }
 }

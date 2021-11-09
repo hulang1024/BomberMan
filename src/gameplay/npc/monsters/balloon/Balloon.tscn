@@ -171,10 +171,8 @@ script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
-centered = false
 offset = Vector2( 0, -2 )
 hframes = 9
-frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 0.6
@@ -185,9 +183,7 @@ anims/move_right = SubResource( 4 )
 anims/move_up = SubResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 8, 7 )
 shape = SubResource( 6 )
-disabled = true
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 8
@@ -195,7 +191,6 @@ collision_mask = 38
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2( 8, 7 )
 shape = SubResource( 7 )
 
 [node name="Hurtbox" type="Area2D" parent="."]
@@ -204,5 +199,4 @@ collision_mask = 64
 script = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2( 8, 7 )
 shape = SubResource( 8 )

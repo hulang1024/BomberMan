@@ -28,6 +28,7 @@ public class World : Control
         foreach (Node node in Map.GetNode("Npc").GetChildren())
         {
             Balloon balloon = (Balloon)node;
+            balloon.World = this;
             balloon.OnDead += () => OnMonsterDead(balloon);
         }
         foreach (Node node in Map.GetNode("Props").GetChildren())
