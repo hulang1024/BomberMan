@@ -9,7 +9,15 @@ public class Hitbox : TestBox
     [Signal]
     delegate void hurtbox_exited(Hurtbox hurtbox);
 
+    /// <summary>
+    /// 被击中物体
+    /// </summary>
     public Hurtbox hitBy;
+
+    /// <summary>
+    /// 是否击中了物体
+    /// </summary>
+    /// <value></value>
     public bool HasHit {
         get { return hitBy != null; }
     }
@@ -21,7 +29,7 @@ public class Hitbox : TestBox
         Connect("area_exited", this, "OnAreaExited");
     }
 
-    public void OnAreaEntered(Area2D area)
+    private void OnAreaEntered(Area2D area)
     {
         if (!(area is Hurtbox))
         {
@@ -32,7 +40,7 @@ public class Hitbox : TestBox
         area.EmitSignal("hitbox_entered", this);
     }
 
-    public void OnAreaExited(Area2D area)
+    private void OnAreaExited(Area2D area)
     {
         if (!(area is Hurtbox))
         {

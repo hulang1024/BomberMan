@@ -10,6 +10,10 @@ public class Hurtbox : TestBox
 
     public Hitbox hitbox;
 
+    /// <summary>
+    /// 是否被击中
+    /// </summary>
+    /// <value></value>
     public bool HasHit {
         get { return hitbox != null; }
     }
@@ -21,12 +25,12 @@ public class Hurtbox : TestBox
         Connect("hitbox_exited", this, "OnHitboxExited");
     }
 
-    public void OnHitboxEntered(Hitbox hitbox)
+    private void OnHitboxEntered(Hitbox hitbox)
     {
         this.hitbox = hitbox;
     }
 
-    public void OnHitboxExited(Hitbox hitbox)
+    private void OnHitboxExited(Hitbox hitbox)
     {
         hitbox = null;
     }

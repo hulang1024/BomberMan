@@ -1,25 +1,25 @@
 using Godot;
 
 public class TestBox : Area2D {
-    private Node2D collisionNode;
-    public Node2D CollisionNode
-    {
-        get { return this.collisionNode; }
-    }
+    public Node2D CollisionNode { get; private set; }
 
+    /// <summary>
+    /// 设置/获取启用
+    /// </summary>
+    /// <value></value>
     public bool Enabled
     {
-        set { collisionNode.Set("disabled", !value); }
-        get { return !(bool)collisionNode.Get("disabled"); }
+        set { CollisionNode.Set("disabled", !value); }
+        get { return !(bool)CollisionNode.Get("disabled"); }
     }
 
     public override void _Ready()
     {
-        foreach (string name in new string[]{ "CollisionShape2D" })
+        foreach (string name in new string[]{ "CollisionShape2D", "CollisionPolygon2D" })
         {
             if (HasNode(name))
             {
-                collisionNode = GetNode<Node2D>(name);
+                CollisionNode = GetNode<Node2D>(name);
                 break;
             }
         }
